@@ -1,0 +1,43 @@
+class NotDeletedObject
+{
+   Ptr allocateds32;
+   
+   pub fn Init()
+   {
+      allocateds32 = new s32;
+      allocateds32.Value = 29;
+   }
+   
+   pub fn Destroy()
+   {
+      delete allocateds32;
+   }
+}
+
+fn banana()
+{
+   NotDeletedObject ndo;
+   ndo.Init();//Oh look, we are allocating stuff at here, lets see if it's manually deallocated
+   ...
+   ...
+   bar();//Oh look we are getting out of scope and we didn't deallocated the previous allocation at ndo, but the execution of this fn didn't finished yet as there are more operations to perform, so we will wait to see if its manually deallocated
+   ...
+   //Tons of operations
+   ...
+   ndo.Destroy();//Oh look, ndo.allocateds32 was finally deallocated, we don't need to insert anything
+}
+
+fn foo()
+{
+   NotDeletedObject ndo;
+   ndo.Init();//Oh look, we are allocating stuff at here, lets see if it's manually deallocated
+   ...
+   ...
+   delete ndo.allocateds32; //not called by the user, inserted by mls
+   bar();//We are getting out of scope, but the previous allocation at ndo didn't deallocate, and the execution of this fn ends here, so i will throw an error if mls-as-errors is set, otherwise, throw an info message advertising about that and insert a delete on the allocated ptr(even if its private) on the previous line(23) and continue
+}
+
+pub fn bar()
+{
+   ...
+}
