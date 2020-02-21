@@ -5,7 +5,7 @@ class NotDeletedObject
    pub fn Init()
    {
       allocateds32 = new s32;
-      allocateds32.Value = 29;
+      allocateds32.Content = 29;
    }
    
    pub fn Destroy()
