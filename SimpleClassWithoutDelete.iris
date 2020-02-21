@@ -1,6 +1,6 @@
 class NotDeletedObject
 {
-   Ptr allocateds32;
+   ptr allocateds32;
    
    pub fn Init()
    {
