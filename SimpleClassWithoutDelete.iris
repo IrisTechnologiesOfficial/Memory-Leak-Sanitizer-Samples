@@ -34,7 +34,7 @@ fn foo()
    ...
    ...
    delete ndo.allocateds32; //not called by the user, inserted by mls
-   bar();//We are getting out of scope, but the previous allocation at ndo didn't deallocate, and the execution of this fn ends here, so i will throw an error if mls-as-errors is set, otherwise, throw an info message advertising about that and insert a delete on the allocated ptr(even if its private) on the previous line(23) and continue
+   bar();//We are getting out of scope, but the previous allocation at ndo didn't deallocate, and the execution of this fn ends here, so i will throw an error if mls-as-errors is set, otherwise, throw an info message advertising about that and insert a delete on the allocated ptr(even if its private) on the previous line(36) and continue
 }
 
 pub fn bar()
